@@ -1,5 +1,6 @@
 const express = require("express")
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express()
 
@@ -13,6 +14,8 @@ require('./drivers/connect-db')
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(cors())
 
 // Routes
 app.use(require('./routes/shoes-routes'))
+app.use(require('./routes/user-routes'))
