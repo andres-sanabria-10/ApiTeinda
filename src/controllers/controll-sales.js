@@ -19,28 +19,32 @@ module.exports = {
       }
     },
 
-    createSale : async(req,res)=>{
+    createSale: async (req, res) => {
       try {
-          const { shoes } = req.body;
-
-          // Validar si todas las IDs de zapatos existen
-          const shoesDocs = await Shoes.find({ _id: { $in: shoes } });
-
-          if (shoesDocs.length !== shoes.length) {
-            return res.status(400).json({ error: 'Uno o más zapatos no existen en la base de datos' });
-          }
-
-          // Calcular el precio total sumando los precios de cada zapato
-          const totalPrice = shoesDocs.reduce((total, shoe) => total + shoe.Price, 0);
-
-          // Crear y guardar la venta
-          const sale = new Sale({ shoes, totalPrice });
-          const result = await sale.save();
-
-          return res.status(201).json({ data: result });
-        } catch (err) {
-          return res.status(500).json({ error: err.message });
+        const { shoes } = req.body;
+    
+        // Validar si todas las IDs de zapatos existen
+        const shoeIds = shoes.map(shoe => shoe.shoeId);
+        const shoesDocs = await Shoes.find({ _id: { $in: shoeIds } });
+    
+        if (shoesDocs.length !== shoeIds.length) {
+          return res.status(400).json({ error: 'Uno o más zapatos no existen en la base de datos' });
         }
+    
+        // Calcular el precio total sumando los precios de cada zapato
+        const totalPrice = shoes.reduce((total, shoe) => {
+          const shoeDoc = shoesDocs.find(doc => doc._id.toString() === shoe.shoeId.toString());
+          return total + shoeDoc.Price * shoe.quantity;
+        }, 0);
+    
+        // Crear y guardar la venta
+        const sale = new Sale({ shoes, totalPrice });
+        const result = await sale.save();
+    
+        return res.status(201).json({ data: result });
+      } catch (err) {
+        return res.status(500).json({ error: err.message });
+      }
     },
 
     getSale: async (req, res) => {
