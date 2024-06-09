@@ -19,3 +19,4 @@ app.use(cors())
 // Routes
 app.use(require('./routes/shoes-routes'))
 app.use(require('./routes/user-routes'))
+app.use(require('./routes/sales-routes'))
