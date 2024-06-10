@@ -22,30 +22,45 @@ module.exports = {
       }
     },
 
-    createSale: async (req, res) => {
+      createSale: async (req, res) => {
       try {
         const { userId, shoes } = req.body;
-  
+    
         // Validar que el usuario existe
         const user = await User.findById(userId);
         if (!user) {
           return res.status(404).json({ error: 'Usuario no encontrado' });
         }
-  
+    
         // Validar si todas las IDs de zapatos existen
         const shoeIds = shoes.map(shoe => shoe.shoeId);
         const shoesDocs = await Shoes.find({ _id: { $in: shoeIds } });
-  
+    
         if (shoesDocs.length !== shoeIds.length) {
           return res.status(400).json({ error: 'Uno o más zapatos no existen en la base de datos' });
         }
-  
+    
+        // Verificar si hay suficiente stock para cada zapato
+        for (const shoe of shoes) {
+          const shoeDoc = shoesDocs.find(doc => doc._id.toString() === shoe.shoeId.toString());
+          if (shoe.quantity > shoeDoc.Stock) {
+            return res.status(400).json({ error: `Stock insuficiente para el zapato con ID ${shoe.shoeId}` });
+          }
+        }
+    
         // Calcular el precio total sumando los precios de cada zapato
         const totalPrice = shoes.reduce((total, shoe) => {
           const shoeDoc = shoesDocs.find(doc => doc._id.toString() === shoe.shoeId.toString());
           return total + shoeDoc.Price * shoe.quantity;
         }, 0);
-  
+    
+        // Actualizar el stock de cada zapato
+        for (const shoe of shoes) {
+          const shoeDoc = shoesDocs.find(doc => doc._id.toString() === shoe.shoeId.toString());
+          shoeDoc.Stock -= shoe.quantity;
+          await shoeDoc.save();
+        }
+    
         // Crear y guardar la venta
         const sale = new Sale({
           userId,
@@ -53,7 +68,7 @@ module.exports = {
           totalPrice
         });
         const result = await sale.save();
-  
+    
         return res.status(201).json({ data: result });
       } catch (err) {
         return res.status(500).json({ error: err.message });
