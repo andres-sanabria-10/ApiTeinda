@@ -22,6 +22,7 @@ module.exports = {
       } 
     },
     
+    //nuevo
     getShoeBrand: async (req, res) => {
       try {
         const { brand } = req.params;
@@ -37,6 +38,7 @@ module.exports = {
       }
     },
 
+    //nuevo
     getShoeId: async (req, res) => {
       try{
         const {id} = req.params

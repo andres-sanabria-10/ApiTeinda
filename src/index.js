@@ -14,18 +14,19 @@ const swaggerSpec = require('./swagger')
 app.use('/docs',swaggerUI.serve,swaggerUI.setup(swaggerSpec))
 app.use('/sales', require('./routes/sales-routes'));
 
-/*
+
 //zapatos
 const swaggerSpec2 = require('./swaggerShoes')
 app.use('/docsShoes',swaggerUI.serve,swaggerUI.setup(swaggerSpec2))
 app.use('/shoes', require('./routes/shoes-routes'));
 
 
+
 //usuarios
 const swaggerSpec3 = require('./swaggerUsers')
 app.use('/docsUsers',swaggerUI.serve,swaggerUI.setup(swaggerSpec3))
 app.use('/users', require('./routes/user-routes'));
-*/
+
 
 
 app.set("PORT", process.env.PORT || 3000);
