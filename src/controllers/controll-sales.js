@@ -44,7 +44,8 @@ module.exports = {
         for (const shoe of shoes) {
           const shoeDoc = shoesDocs.find(doc => doc._id.toString() === shoe.shoeId.toString());
           if (shoe.quantity > shoeDoc.Stock) {
-            return res.status(400).json({ error: `Stock insuficiente para el zapato con ID ${shoe.shoeId}` });
+            const { Brand, Model } = shoeDoc;
+            return res.status(400).json({ error: `Stock insuficiente para el zapato ${Brand} / ${Model}` });
           }
         }
     
