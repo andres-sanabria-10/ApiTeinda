@@ -38,5 +38,27 @@ module.exports = {
       } catch (err) {
         return res.status(500).json({ err: err });
       }
+    },
+    
+    getUser : async( req,res )=>{
+      try{
+        const {id} = req.params
+        const result = await User.findById(id)
+
+        return res.status(200).json({data:result})
+      }catch(err){
+        return res.status(500).json({error:err})
+      }
+    },
+
+    updateUser : async(req,res)=>{
+      try{
+        const {id} = req.params
+        const userUpdate = await User.findByIdAndUpdate(id, req.body)
+
+        return res.status(200).json({data:userUpdate})
+      }catch(err){
+        return res.status(500).json({error:err})
+      }
     }
   }

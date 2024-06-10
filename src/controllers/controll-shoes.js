@@ -22,7 +22,7 @@ module.exports = {
       } 
     },
     
-    getShoe: async (req, res) => {
+    getShoeBrand: async (req, res) => {
       try {
         const { brand } = req.params;
         const result = await Shoe.find({ Brand: brand });
@@ -36,6 +36,18 @@ module.exports = {
         return res.status(500).json({ error: err });
       }
     },
+
+    getShoeId: async (req, res) => {
+      try{
+        const {id} = req.params
+        const result = await Shoe.findById(id)
+
+        return res.status(200).json({data:result})
+      }catch(err){
+        return res.status(500).json({error:err})
+      }
+    },
+    
     updateShoe : async(req,res)=>{
       try{
         const {id} = req.params

@@ -2,7 +2,8 @@ const router = require('express').Router()
 
 const {
   getShoes,
-  getShoe,
+  getShoeBrand,
+  getShoeId,
   createShoe,
   updateShoe,
   deleteShoe
@@ -10,7 +11,9 @@ const {
 
 router.get('/shoes', getShoes)
 
-router.get('/shoes/:brand', getShoe)
+router.get('/shoesBrand/:brand', getShoeBrand)
+
+router.get('/shoes/:id', getShoeId)
 
 router.post('/shoes', createShoe)
 
