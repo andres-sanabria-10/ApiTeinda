@@ -80,18 +80,20 @@ module.exports = {
     getSale: async (req, res) => {
       try {
         const { userId } = req.params;
-        const sale = await Sale.findOne({ userId }).populate('shoes.shoeId');
+        const sales = await Sale.find({ userId })
+          .populate('shoes.shoeId')
+          .sort({ Date: -1 }); // Ordenar por fecha descendente (más recientes primero)
     
-        if (!sale) {
-          return res.status(404).json({ error: 'No se encontró ninguna venta para el usuario especificado' });
+        if (sales.length === 0) {
+          return res.status(404).json({ error: 'No se encontraron ventas para el usuario especificado' });
         }
     
-        const formattedSale = {
+        const formattedSales = sales.map(sale => ({
           ...sale._doc,
           Date: dayjs(sale.Date).format('DD/MM/YYYY HH:mm')
-        };
+        }));
     
-        return res.status(200).json({ data: formattedSale });
+        return res.status(200).json({ data: formattedSales });
       } catch (err) {
         return res.status(500).json({ error: err.message });
       }
