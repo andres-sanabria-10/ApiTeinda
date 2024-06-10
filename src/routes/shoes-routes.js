@@ -10,7 +10,7 @@ const {
 
 router.get('/shoes', getShoes)
 
-router.get('/shoes/:id', getShoe)
+router.get('/shoes/:brand', getShoe)
 
 router.post('/shoes', createShoe)
 

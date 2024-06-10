@@ -78,8 +78,12 @@ module.exports = {
 
     getSale: async (req, res) => {
       try {
-        const { id } = req.params;
-        const sale = await Sale.findById(id);
+        const { userId } = req.params;
+        const sale = await Sale.findOne({ userId }).populate('shoes.shoeId');
+    
+        if (!sale) {
+          return res.status(404).json({ error: 'No se encontró ninguna venta para el usuario especificado' });
+        }
     
         const formattedSale = {
           ...sale._doc,
@@ -88,30 +92,7 @@ module.exports = {
     
         return res.status(200).json({ data: formattedSale });
       } catch (err) {
-        return res.status(500).json({ error: err });
+        return res.status(500).json({ error: err.message });
       }
-    },
-    
-    updateSale : async(req,res)=>{
-      try{
-        const {id} = req.params
-        const saleUpdate = await Sale.findByIdAndUpdate(id, req.body)
-          
-        return res.status(200).json({data:saleUpdate})
-      }catch(err){
-        return res.status(500).json({error:err})
-      }
-    },
-  
-    deleteSale : async (req,res)=>{
-      try {
-
-        const result = await Sale.findByIdAndDelete(req.params.id)
-        
-        return res.status(200).json({data:result})
-      } catch (error) {
-        return res.status(500).json({error:error})
-      }
-  
     }
   }

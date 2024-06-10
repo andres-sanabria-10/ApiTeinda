@@ -21,14 +21,19 @@ module.exports = {
         return res.status(500).json({err:err})
       } 
     },
-    getShoe : async( req,res )=>{
-      try{
-        const {id} = req.params
-        const result = await Shoe.findById(id)
-  
-        return res.status(200).json({data:result})
-      }catch(err){
-        return res.status(500).json({error:err})
+    
+    getShoe: async (req, res) => {
+      try {
+        const { brand } = req.params;
+        const result = await Shoe.find({ Brand: brand });
+    
+        if (result.length === 0) {
+          return res.status(404).json({ error: 'No se encontraron zapatos con esa marca' });
+        }
+    
+        return res.status(200).json({ data: result });
+      } catch (err) {
+        return res.status(500).json({ error: err });
       }
     },
     updateShoe : async(req,res)=>{
