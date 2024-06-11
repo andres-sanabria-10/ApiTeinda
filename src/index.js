@@ -16,7 +16,7 @@ app.use('/sales', require('./routes/sales-routes'));
 app.use('/shoes', require('./routes/shoes-routes'));
 app.use('/users', require('./routes/user-routes'));
 
-app.set("PORT", process.env.PORT || 3900);
+app.set("PORT", process.env.PORT || 3000);
 app.listen(app.get('PORT'),()=>console.log(`Server Ready al port ${app.get('PORT')}`))
 
 //Connect to database
