@@ -20,9 +20,7 @@ const swaggerDefinition = {
    },
 
    servers: [
-    {
-      url: 'http://localhost:3000',
-    },
+    
     {
       url: 'https://apiteinda.onrender.com',
       description: 'Servidor de producción'
