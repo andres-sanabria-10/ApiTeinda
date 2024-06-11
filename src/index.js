@@ -9,7 +9,7 @@ const app = express()
 //Api 
 const swaggerSpec = require('./swagger')
 app.use('/docs',swaggerUI.serve,swaggerUI.setup(swaggerSpec))
-app.use('/sales', require('./routes/sales-routes'));
+
 
 
 app.use('/sales', require('./routes/sales-routes'));
