@@ -12,6 +12,8 @@ module.exports = {
       }
     },
     
+
+    //cambio
     createUser: async (req, res) => {
       try {
           const { name, lastName, mail, password, role } = req.body;

@@ -8,6 +8,13 @@ const {
   } = require('./../controllers/controll-user')
 
 
+  /**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API para gestionar los usuarios
+ */
+
 
 
 /**
@@ -15,13 +22,15 @@ const {
  * /users:
  *   get:
  *     summary: Obtiene todos los usuarios
+ *     tags: [Users]
  *     responses:
  *       200:
  *         description: Éxito, devuelve la lista de usuarios
  *       500:
  *         description: Error del servidor
- */  
+ */ 
 router.get('/users', getUsers)
+
 
 
 
@@ -30,6 +39,7 @@ router.get('/users', getUsers)
  * /users/{id}:
  *   get:
  *     summary: Obtiene un usuario por su ID
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -57,6 +67,7 @@ router.get('/users/:id', getUser)
  *   post:
  *     summary: Crea un nuevo usuario
  *     description: Crea un nuevo usuario en la base de datos.
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -64,9 +75,19 @@ router.get('/users/:id', getUser)
  *           schema:
  *             type: object
  *             required:
+ *               - name
+ *               - lastName
  *               - mail
  *               - password
  *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Nombre del usuario
+ *                 example: Juan
+ *               lastName:
+ *                 type: string
+ *                 description: Apellido del usuario
+ *                 example: Pérez
  *               mail:
  *                 type: string
  *                 description: Correo electrónico del usuario
@@ -77,7 +98,7 @@ router.get('/users/:id', getUser)
  *                 example: securepassword
  *               role:
  *                 type: string
- *                 description: Rol del usuario
+ *                 description: Rol del usuario (opcional)
  *                 example: Administrador
  *     responses:
  *       201:
@@ -118,6 +139,7 @@ router.post('/users', createUser)
  * /users/{id}:
  *   put:
  *     summary: Actualiza un usuario existente por su ID
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -141,7 +163,6 @@ router.put('/users/:id', updateUser)
 
 
 module.exports = router
-
 
 
 

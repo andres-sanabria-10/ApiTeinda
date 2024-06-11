@@ -6,6 +6,16 @@ const {
   createSale
   } = require('./../controllers/controll-sales')
 
+  /**
+ * @swagger
+ * tags:
+ *   name: Sales
+ *   description: API para gestionar las ventas
+ */
+
+
+
+
 
 
 /**
@@ -14,6 +24,7 @@ const {
  *   get:
  *     summary: Obtener todas las ventas
  *     description: Obtiene todas las ventas de la base de datos.
+ *     tags: [Sales]
  *     responses:
  *       200:
  *         description: Se obtuvieron las ventas exitosamente.
@@ -40,13 +51,13 @@ router.get('/sales', getSales)
 
 
 
-
 /**
  * @swagger
  * /sales/{userId}:
  *   get:
  *     summary: Obtener una venta por ID de usuario
  *     description: Obtiene una venta específica según el ID de usuario proporcionado.
+ *     tags: [Sales]
  *     parameters:
  *       - in: path
  *         name: userId
@@ -92,6 +103,7 @@ router.get('/sales/:userId', getSale)
  * /sales:
  *   post:
  *     summary: Crear una nueva venta
+ *     tags: [Sales]
  *     description: Crea una nueva venta en la base de datos.
  *     requestBody:
  *       required: true

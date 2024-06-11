@@ -10,12 +10,22 @@ const {
   } = require('./../controllers/controll-shoes')
 
 
+/**
+ * @swagger
+ * tags:
+ *   name: Shoes
+ *   description: API para gestionar los zapatos
+ */
 
-   /**
+
+
+/**
  * @swagger
  * /shoes:
  *   get:
  *     summary: Obtiene todos los zapatos
+ *     description: Obtiene todos los zapatos en el inventario
+ *     tags: [Shoes]
  *     responses:
  *       200:
  *         description: Éxito, devuelve la lista de zapatos
@@ -25,11 +35,14 @@ const {
 router.get('/shoes', getShoes)
 
 
+
+
 /**
  * @swagger
  * /shoesBrand/{brand}:
  *   get:
  *     summary: Obtiene zapatos por marca
+ *     tags: [Shoes]
  *     parameters:
  *       - in: path
  *         name: brand
@@ -55,6 +68,7 @@ router.get('/shoesBrand/:brand', getShoeBrand)
  * /shoes/{id}:
  *   get:
  *     summary: Obtiene un zapato por su ID
+ *     tags: [Shoes]
  *     parameters:
  *       - in: path
  *         name: id
@@ -74,11 +88,14 @@ router.get('/shoes/:id', getShoeId)
 
 
 
+
+
 /**
  * @swagger
  * /shoes:
  *   post:
  *     summary: Crea un nuevo zapato
+ *     tags: [Shoes]
  *     requestBody:
  *       required: true
  *       content:
@@ -152,6 +169,7 @@ router.post('/shoes', createShoe)
  * /shoes/{id}:
  *   put:
  *     summary: Actualiza un zapato existente por su ID
+ *     tags: [Shoes]
  *     parameters:
  *       - in: path
  *         name: id
@@ -181,6 +199,7 @@ router.put('/shoes/:id', updateShoe)
  * /shoes/{id}:
  *   delete:
  *     summary: Elimina un zapato por su ID
+ *     tags: [Shoes]
  *     parameters:
  *       - in: path
  *         name: id
@@ -200,6 +219,7 @@ router.delete('/shoes/:id', deleteShoe)
 
 
 module.exports = router
+
 
 
 /**
@@ -250,3 +270,4 @@ module.exports = router
  *           description: URL de la imagen del zapato
  *           example: http://example.com/image.jpg
  */
+

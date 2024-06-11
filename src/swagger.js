@@ -9,9 +9,9 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerDefinition = {
   openapi : '3.0.0',
   info : {
-    title: 'Sales API',
+    title: 'Tienda API',
     version: '1.0.0',
-    description: 'API para gestionar ventas de zapatos',
+    description: 'API para gestionar productos: zapatos, Usuarios, y ventas de una tienda de zapatos',
     contact: {
       name: 'Yennyfer Lesmes, Jhonatan Guarin, Andres Sanabria',
       url: 'https://github.com/tatianalesmes',
@@ -36,7 +36,8 @@ const swaggerDefinition = {
 
   const options = {
   swaggerDefinition,
-  apis:['./src/routes/sales-routes.js'],
+  apis: ['./src/routes/sales-routes.js', './src/routes/shoes-routes.js', './src/routes/user-routes.js'], // Rutas a todos tus archivos de rutas
+  
   }
 
 
